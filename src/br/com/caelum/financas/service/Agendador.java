@@ -4,13 +4,22 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.annotation.Resource;
 import javax.ejb.AccessTimeout;
+import javax.ejb.ScheduleExpression;
 import javax.ejb.Singleton;
+import javax.ejb.Timeout;
+import javax.ejb.Timer;
+import javax.ejb.TimerConfig;
+import javax.ejb.TimerService;
 
 //@Stateless
 @Singleton
 @AccessTimeout(unit = TimeUnit.SECONDS, value = 5)
 public class Agendador {
+
+	@Resource
+	private TimerService timerService;
 
 	private static int totalCriado;
 
@@ -34,6 +43,29 @@ public class Agendador {
 	@PreDestroy
 	void preDestruicao() {
 		System.out.println("Destruindo agendador");
+	}
+
+	public void agenda(String expressaoMinutos, String expressaoSegundos) {
+		ScheduleExpression expression = new ScheduleExpression();
+		expression.hour("*");
+		expression.minute(expressaoMinutos);
+		expression.second(expressaoSegundos);
+
+		TimerConfig config = new TimerConfig();
+		config.setInfo(expression.toString());
+		config.setPersistent(false);
+
+		this.timerService.createCalendarTimer(expression, config);
+
+		System.out.println("Agendamento: " + expression);
+	}
+	
+	@Timeout
+	public void verificacaoPeriodicaSeHaNovasContas(Timer timer) {
+		System.out.println(timer.getInfo());
+		
+		//Aqui poderiamos acessar o banco de dados
+		// com JPA para verificar as contas periodicamente
 	}
 
 }

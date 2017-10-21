@@ -27,16 +27,10 @@ public class MesesComMovimentacaoBean {
 		
 		valoresPorMesEAno = movimentacaoDao.listaMesesComMovimentacoes(conta, tipoMovimentacao);
 	}
-
-	
-	
 	
 	public List<ValorPorMesEAno> getValoresPorMesEAno() {
 		return valoresPorMesEAno;
 	}
-
-
-
 
 	public TipoMovimentacao getTipoMovimentacao() {
 		return tipoMovimentacao;

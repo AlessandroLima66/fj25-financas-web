@@ -1,23 +1,42 @@
 package br.com.caelum.financas.mb;
 
 
+import java.util.List;
+
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import br.com.caelum.financas.dao.MovimentacaoDao;
 import br.com.caelum.financas.modelo.Conta;
 import br.com.caelum.financas.modelo.TipoMovimentacao;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
+import br.com.caelum.financas.modelo.ValorPorMesEAno;
 
 @Named
 @RequestScoped
 public class MesesComMovimentacaoBean {
-
+	
+	@Inject
+	private MovimentacaoDao movimentacaoDao;
 	private Conta conta = new Conta();
-
+	private List<ValorPorMesEAno> valoresPorMesEAno;
 	private TipoMovimentacao tipoMovimentacao;
 	
 	public void lista() {
 		System.out.println("Listando as contas pelos valores movimentados no mes");
-
+		
+		valoresPorMesEAno = movimentacaoDao.listaMesesComMovimentacoes(conta, tipoMovimentacao);
 	}
+
+	
+	
+	
+	public List<ValorPorMesEAno> getValoresPorMesEAno() {
+		return valoresPorMesEAno;
+	}
+
+
+
 
 	public TipoMovimentacao getTipoMovimentacao() {
 		return tipoMovimentacao;

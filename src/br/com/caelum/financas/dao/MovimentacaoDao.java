@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import br.com.caelum.financas.exception.ValorInvalidoException;
 import br.com.caelum.financas.modelo.Conta;
@@ -58,6 +59,17 @@ public class MovimentacaoDao {
 		query.setParameter("tipo", tipo);
 
 		return query.getResultList();
+	}
+	
+	public BigDecimal calculaTotalMovimentado(Conta conta, TipoMovimentacao tipo) {
+		String jpql = "select sum(m.valor) from Movimentacao m "
+				+ "where m.conta=:conta and m.tipoMovimentacao=:tipo";
+		TypedQuery<BigDecimal> query = this.manager.createQuery(jpql, BigDecimal.class);
+		
+		query.setParameter("conta", conta);
+		query.setParameter("tipo", tipo);
+		
+		return query.getSingleResult();
 	}
 
 }

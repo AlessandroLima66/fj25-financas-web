@@ -20,44 +20,41 @@ public class MovimentacoesBean implements Serializable {
 
 	@Inject
 	private ContaDao contaDao;
-	
+
 	@Inject
 	private MovimentacaoDao movimentacaoDao;
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private List<Movimentacao> movimentacoes;
 	private Movimentacao movimentacao = new Movimentacao();
 	private Integer contaId;
 	private Integer categoriaId;
-	
-	
+
 	public void grava() {
 		System.out.println("Fazendo a gravacao da movimentacao");
-		
+
 		Conta contaRelacionada = contaDao.busca(contaId);
 		movimentacao.setConta(contaRelacionada);
+
 		limpaFormularioDoJSF();
 	}
-	
 
 	public void remove() {
 		System.out.println("Removendo a movimentacao");
-		
+
 		movimentacaoDao.remove(movimentacao);
 		limpaFormularioDoJSF();
 	}
 
 	public List<Movimentacao> getMovimentacoes() {
-		
-		if (this.movimentacoes == null) {
-			this.movimentacoes = movimentacaoDao.lista();
-		}
+		this.movimentacoes = movimentacaoDao.lista();
+
 		return movimentacoes;
 	}
-	
+
 	public Movimentacao getMovimentacao() {
-		if(movimentacao.getData()==null) {
+		if (movimentacao.getData() == null) {
 			movimentacao.setData(LocalDateTime.now());
 		}
 		return movimentacao;
@@ -74,7 +71,6 @@ public class MovimentacoesBean implements Serializable {
 	public void setContaId(Integer contaId) {
 		this.contaId = contaId;
 	}
-	
 
 	public Integer getCategoriaId() {
 		return categoriaId;

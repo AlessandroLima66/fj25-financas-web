@@ -13,12 +13,11 @@ import br.com.caelum.financas.modelo.Conta;
 @Named
 @ViewScoped
 public class ContasBean implements Serializable {
-    
+
 	@Inject
 	private ContaDao contaDao;
-	
-    private static final long serialVersionUID = 1L;
 
+	private static final long serialVersionUID = 1L;
 	private Conta conta = new Conta();
 	private List<Conta> contas;
 
@@ -33,18 +32,18 @@ public class ContasBean implements Serializable {
 	public void grava() {
 		System.out.println("Gravando a conta");
 		if (this.conta.getId() == null) {
-		contaDao.adiciona(conta);
-		}else {
+			contaDao.adiciona(conta);
+		} else {
 			contaDao.altera(conta);
 		}
+
 		
-		this.contas = contaDao.lista();
 		limpaFormularioDoJSF();
 	}
 
 	public List<Conta> getContas() {
 		System.out.println("Listando as contas");
-		
+
 		if (this.contas == null) {
 			this.contas = contaDao.lista();
 		}
@@ -53,7 +52,7 @@ public class ContasBean implements Serializable {
 
 	public void remove() {
 		System.out.println("Removendo a conta");
-		
+
 		contaDao.remove(this.conta);
 		limpaFormularioDoJSF();
 	}

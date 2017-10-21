@@ -19,7 +19,7 @@ public class Conta {
 	private String numero;
 	private String banco;
 
-	@OneToMany
+	@OneToMany(mappedBy="contas")
 	private List<Movimentacao> movimentacoes;
 	
 	

@@ -6,21 +6,22 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import br.com.caelum.financas.exception.ValorInvalidoException;
+import br.com.caelum.financas.modelo.Conta;
 import br.com.caelum.financas.modelo.Movimentacao;
-
 
 @Stateless
 public class MovimentacaoDao {
-	
+
 	@PersistenceContext
 	EntityManager manager;
 
 	public void adiciona(Movimentacao movimentacao) {
 		this.manager.persist(movimentacao);
-		
-		if(movimentacao.getValor().compareTo(BigDecimal.ZERO) < 0) {
+
+		if (movimentacao.getValor().compareTo(BigDecimal.ZERO) < 0) {
 			throw new ValorInvalidoException("Movimentação negativa");
 		}
 	}
@@ -37,5 +38,14 @@ public class MovimentacaoDao {
 		Movimentacao movimentacaoParaRemover = this.manager.find(Movimentacao.class, movimentacao.getId());
 		this.manager.remove(movimentacaoParaRemover);
 	}
-	
+
+	public List<Movimentacao> listaTodasMovimentacoes(Conta conta) {
+		String jpql = "select m from Movimentacao m" 
+					+ " where m.conta = :conta order by m.valor desc";
+		Query query = this.manager.createQuery(jpql);
+		query.setParameter("conta", conta);
+		
+		return query.getResultList();
+	}
+
 }

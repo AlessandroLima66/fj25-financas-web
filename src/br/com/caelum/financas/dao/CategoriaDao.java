@@ -23,4 +23,5 @@ public class CategoriaDao implements Serializable{
 	public List<Categoria> lista(){
 		return this.manager.createQuery("select c from Categoria c", Categoria.class).getResultList();
 	}
+	
 }

@@ -4,19 +4,21 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import br.com.caelum.financas.modelo.Categoria;
-import br.com.caelum.financas.modelo.Conta;
 
 @Stateless
 public class CategoriaDao implements Serializable{
 
-	@PersistenceContext
+	private static final long serialVersionUID = 1L;
+	
+	@Inject //@PersistenceContext
 	private EntityManager manager;
 	
 	public Categoria procura(Integer id) {
+		manager.joinTransaction();
 		return this.manager.find(Categoria.class, id);
 	}
 	

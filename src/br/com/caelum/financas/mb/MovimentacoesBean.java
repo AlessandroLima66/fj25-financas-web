@@ -52,7 +52,7 @@ public class MovimentacoesBean implements Serializable {
 	}
 
 	public List<Movimentacao> getMovimentacoes() {
-		this.movimentacoes = movimentacaoDao.listaComCategorias();
+		this.movimentacoes = movimentacaoDao.lista();
 		return movimentacoes;
 	}
 

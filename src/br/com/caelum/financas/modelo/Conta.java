@@ -19,7 +19,7 @@ public class Conta {
 	private String numero;
 	private String banco;
 
-	@OneToMany(mappedBy="contas")
+	@OneToMany(mappedBy="conta")
 	private List<Movimentacao> movimentacoes;
 	
 	
@@ -70,5 +70,6 @@ public class Conta {
 	public void setBanco(String banco) {
 		this.banco = banco;
 	}
+	
 
 }

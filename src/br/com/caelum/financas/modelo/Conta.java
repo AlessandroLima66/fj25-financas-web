@@ -20,6 +20,7 @@ public class Conta {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	private String titular;
 	private String agencia;
 	private String numero;

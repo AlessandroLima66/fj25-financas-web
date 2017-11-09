@@ -7,7 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.envers.Audited;
+
 @Entity
+@Audited
 public class Categoria implements Serializable {
 
 	private static final long serialVersionUID = 1L;

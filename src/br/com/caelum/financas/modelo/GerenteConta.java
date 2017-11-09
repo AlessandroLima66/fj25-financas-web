@@ -2,7 +2,10 @@ package br.com.caelum.financas.modelo;
 
 import javax.persistence.Entity;
 
+import org.hibernate.envers.Audited;
+
 @Entity
+@Audited
 public class GerenteConta extends Gerente{
 
 	private String numeroDaConta;

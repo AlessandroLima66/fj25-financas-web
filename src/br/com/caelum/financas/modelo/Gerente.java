@@ -8,7 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
+import org.hibernate.envers.Audited;
+
 @Entity
+@Audited
 @Inheritance(strategy=InheritanceType.JOINED)
 public class Gerente {
 	

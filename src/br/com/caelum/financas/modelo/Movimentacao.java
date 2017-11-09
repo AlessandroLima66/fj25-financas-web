@@ -15,7 +15,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.envers.Audited;
+
 @Entity
+@Audited
 @Cacheable
 public class Movimentacao {
 

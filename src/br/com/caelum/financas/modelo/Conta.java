@@ -19,10 +19,13 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.envers.Audited;
 
 import br.com.caelum.financas.validator.NumeroEAgencia;
 
+
 @Entity
+@Audited
 @Cacheable
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "agencia", "numero" }) })
 @NumeroEAgencia // Anotação criada por mim
